@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoastRepository extends JpaRepository<Roast, Long> {
     @Query(value = "SELECT COUNT(*) FROM roast")
-    long getRoastCount();
+    int getRoastCount();
 }

@@ -21,10 +21,10 @@ public class RoastController {
 
     @GetMapping
     public Roast getRandomRoast() {
-        long roastCount = roastRepository.getRoastCount();
+        int roastCount = roastRepository.getRoastCount();
         Random rand = new Random();
 
-        return roastRepository.getById(rand.nextLong(roastCount) + 1);
+        return roastRepository.getById((long)rand.nextInt(roastCount) + 1);
     }
 
     @PostMapping
