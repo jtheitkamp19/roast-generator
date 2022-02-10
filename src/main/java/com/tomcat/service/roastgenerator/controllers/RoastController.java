@@ -30,7 +30,11 @@ public class RoastController {
 
     @PostMapping
     public Roast create(@RequestBody Roast roast) {
-        roastRepository.saveAndFlush(roast);
+        if ( roastRepository.getRoastCount() <= 9900 ) {
+            roastRepository.saveAndFlush(roast);
+        } else {
+            roast.setRoast("Maximum Roast count exceeded, so this roast could not be saved.");
+        }
         return roast;
     }
 
