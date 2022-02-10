@@ -2,6 +2,7 @@ package com.tomcat.service.roastgenerator.controllers;
 
 import com.tomcat.service.roastgenerator.models.Roast;
 import com.tomcat.service.roastgenerator.repositories.RoastRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,5 +32,13 @@ public class RoastController {
     public Roast create(@RequestBody Roast roast) {
         roastRepository.saveAndFlush(roast);
         return roast;
+    }
+
+    @RequestMapping(path = "/update/{id}", method = RequestMethod.PUT)
+    public Roast update(@PathVariable Long id, @RequestBody Roast roast) {
+        Roast existingRoast = roastRepository.getById(id);
+        BeanUtils.copyProperties(roast, existingRoast);
+        roastRepository.saveAndFlush(existingRoast);
+        return existingRoast;
     }
 }
