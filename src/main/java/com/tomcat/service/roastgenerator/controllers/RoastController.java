@@ -1,5 +1,6 @@
 package com.tomcat.service.roastgenerator.controllers;
 
+import com.tomcat.service.roastgenerator.models.Infographics;
 import com.tomcat.service.roastgenerator.models.Roast;
 import com.tomcat.service.roastgenerator.repositories.RoastRepository;
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,14 @@ import java.util.Random;
 public class RoastController {
     @Autowired
     private RoastRepository roastRepository;
+
+    @GetMapping("/info")
+    public Infographics getInfo() {
+        Infographics info = new Infographics();
+        info.setCount(roastRepository.getRoastCount());
+        info.setRoasts(roastRepository.findAll());
+        return info;
+    }
 
     @GetMapping("{id}")
     public Roast getById(@PathVariable Long id) {
