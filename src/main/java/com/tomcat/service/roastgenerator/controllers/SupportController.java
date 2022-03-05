@@ -31,6 +31,7 @@ public class SupportController {
 
     @PostMapping
     public Support create(@RequestBody Support support) {
+        support.setId((long)supportRepository.getCurrentId() + 1);
         supportRepository.saveAndFlush(support);
         return support;
     }

@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface RoastRepository extends JpaRepository<Roast, Long> {
     @Query(value = "SELECT COUNT(*) FROM roast")
     int getRoastCount();
+
+    @Query(value = "SELECT MAX(id) FROM roast")
+    int getCurrentId();
 }

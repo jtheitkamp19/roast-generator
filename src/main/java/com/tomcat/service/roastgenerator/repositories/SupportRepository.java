@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface SupportRepository extends JpaRepository<Support, Long> {
     @Query(value = "SELECT COUNT(*) FROM support")
     int getRoastCount();
+
+    @Query(value = "SELECT MAX(id) FROM support")
+    int getCurrentId();
 }

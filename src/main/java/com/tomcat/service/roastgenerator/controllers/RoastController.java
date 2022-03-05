@@ -33,6 +33,7 @@ public class RoastController {
 
     @PostMapping
     public Roast create(@RequestBody Roast roast) {
+        roast.setId((long)roastRepository.getCurrentId() + 1);
         roastRepository.saveAndFlush(roast);
         return roast;
     }
