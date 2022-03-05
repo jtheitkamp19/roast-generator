@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Infographics {
     private int count;
-    private List<Roast> roasts;
+    private List<Object> data;
 
     public int getCount() {
         return count;
@@ -14,11 +14,11 @@ public class Infographics {
         this.count = count;
     }
 
-    public List<Roast> getRoasts() {
-        return roasts;
+    public List<Object> getData() {
+        return data;
     }
 
-    public void setRoasts(List<Roast> roasts) {
-        this.roasts = roasts;
+    public void setData(List<Object> data) {
+        this.data = data;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -20,7 +22,7 @@ public class RoastController {
     public Infographics getInfo() {
         Infographics info = new Infographics();
         info.setCount(roastRepository.getRoastCount());
-        info.setRoasts(roastRepository.findAll());
+        info.setData(Arrays.asList(roastRepository.findAll().toArray()));
         return info;
     }
 
@@ -29,21 +31,9 @@ public class RoastController {
         return roastRepository.getById(id);
     }
 
-    @GetMapping
-    public Roast getRandomRoast() {
-        int roastCount = roastRepository.getRoastCount();
-        Random rand = new Random();
-
-        return roastRepository.getById((long)rand.nextInt(roastCount) + 1);
-    }
-
     @PostMapping
     public Roast create(@RequestBody Roast roast) {
-        if ( roastRepository.getRoastCount() <= 9900 ) {
-            roastRepository.saveAndFlush(roast);
-        } else {
-            roast.setRoast("Maximum Roast count exceeded, so this roast could not be saved.");
-        }
+        roastRepository.saveAndFlush(roast);
         return roast;
     }
 
@@ -53,5 +43,12 @@ public class RoastController {
         BeanUtils.copyProperties(roast, existingRoast);
         roastRepository.saveAndFlush(existingRoast);
         return existingRoast;
+    }
+
+    @GetMapping("/localize")
+    public List<Roast> fetchAndRemove() {
+        List<Roast> roasts = roastRepository.findAll();
+        roastRepository.deleteAll();
+        return roasts;
     }
 }
